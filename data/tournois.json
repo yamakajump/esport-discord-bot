@@ -1,0 +1,580 @@
+[
+    {
+        "id": "ba053b56-62bf-4afa-a2f3-0fa5ca0e8caf",
+        "nom": "test",
+        "maxEquipes": 8,
+        "equipes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-07T23:09:01.451Z",
+        "bracket": [
+            [
+                {
+                    "team1": "1",
+                    "team2": "6",
+                    "winner": null
+                },
+                {
+                    "team1": "5",
+                    "team2": "2",
+                    "winner": null
+                },
+                {
+                    "team1": "3",
+                    "team2": "7",
+                    "winner": null
+                },
+                {
+                    "team1": "4",
+                    "team2": "8",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "d28fb75a-b35d-4a92-bee5-f69c6a907841",
+        "nom": "test2",
+        "maxEquipes": 8,
+        "equipes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-07T23:14:59.123Z",
+        "bracket": [
+            [
+                {
+                    "team1": "4",
+                    "team2": "8",
+                    "winner": null
+                },
+                {
+                    "team1": "3",
+                    "team2": "6",
+                    "winner": null
+                },
+                {
+                    "team1": "1",
+                    "team2": "2",
+                    "winner": null
+                },
+                {
+                    "team1": "5",
+                    "team2": "7",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "d66ad3ab-0967-45eb-8dae-505c60f02efe",
+        "nom": "test3",
+        "maxEquipes": 8,
+        "equipes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-07T23:18:29.140Z",
+        "bracket": [
+            [
+                {
+                    "team1": "3",
+                    "team2": "1",
+                    "winner": null
+                },
+                {
+                    "team1": "8",
+                    "team2": "4",
+                    "winner": null
+                },
+                {
+                    "team1": "7",
+                    "team2": "2",
+                    "winner": null
+                },
+                {
+                    "team1": "6",
+                    "team2": "5",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "dca68d1b-47eb-4b02-bab6-c2cbc5914896",
+        "nom": "Tournois Valorant",
+        "maxEquipes": 16,
+        "equipes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-08T11:46:05.312Z",
+        "bracket": [
+            [
+                {
+                    "team1": "10",
+                    "team2": "14",
+                    "winner": null
+                },
+                {
+                    "team1": "5",
+                    "team2": "4",
+                    "winner": null
+                },
+                {
+                    "team1": "1",
+                    "team2": "3",
+                    "winner": null
+                },
+                {
+                    "team1": "9",
+                    "team2": "12",
+                    "winner": null
+                },
+                {
+                    "team1": "8",
+                    "team2": "13",
+                    "winner": null
+                },
+                {
+                    "team1": "2",
+                    "team2": "6",
+                    "winner": null
+                },
+                {
+                    "team1": "11",
+                    "team2": "16",
+                    "winner": null
+                },
+                {
+                    "team1": "15",
+                    "team2": "7",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "6c1228a5-56e6-4e9d-9e40-2bf96dc106c2",
+        "nom": "Tournois Minecraft",
+        "maxEquipes": 32,
+        "equipes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-08T11:46:21.475Z",
+        "bracket": [
+            [
+                {
+                    "team1": "28",
+                    "team2": "25",
+                    "winner": null
+                },
+                {
+                    "team1": "3",
+                    "team2": "12",
+                    "winner": null
+                },
+                {
+                    "team1": "30",
+                    "team2": "1",
+                    "winner": null
+                },
+                {
+                    "team1": "26",
+                    "team2": "15",
+                    "winner": null
+                },
+                {
+                    "team1": "21",
+                    "team2": "14",
+                    "winner": null
+                },
+                {
+                    "team1": "7",
+                    "team2": "13",
+                    "winner": null
+                },
+                {
+                    "team1": "2",
+                    "team2": "16",
+                    "winner": null
+                },
+                {
+                    "team1": "29",
+                    "team2": "5",
+                    "winner": null
+                },
+                {
+                    "team1": "31",
+                    "team2": "4",
+                    "winner": null
+                },
+                {
+                    "team1": "18",
+                    "team2": "19",
+                    "winner": null
+                },
+                {
+                    "team1": "9",
+                    "team2": "23",
+                    "winner": null
+                },
+                {
+                    "team1": "20",
+                    "team2": "27",
+                    "winner": null
+                },
+                {
+                    "team1": "22",
+                    "team2": "6",
+                    "winner": null
+                },
+                {
+                    "team1": "32",
+                    "team2": "17",
+                    "winner": null
+                },
+                {
+                    "team1": "11",
+                    "team2": "10",
+                    "winner": null
+                },
+                {
+                    "team1": "8",
+                    "team2": "24",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "f1a22892-d5fa-4390-9a85-6b0042dc11a7",
+        "nom": "Premier tournois de Hive",
+        "maxEquipes": 2,
+        "equipes": [
+            "vitality",
+            "Amixem"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-08T16:50:16.393Z",
+        "bracket": [
+            [
+                {
+                    "team1": "vitality",
+                    "team2": "Amixem",
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "d69b62b9-211c-4bc5-a144-187ce9a4e903",
+        "nom": "Valorant V2",
+        "maxEquipes": 8,
+        "equipes": [
+            "azerty",
+            "aozdaze",
+            "azféefgze",
+            "azdazd",
+            "azdazgra",
+            "azdazfgga",
+            "azefaegzzaaze",
+            "zaefaefa"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-08T16:51:02.920Z",
+        "bracket": [
+            [
+                {
+                    "team1": "azdazfgga",
+                    "team2": "azdazgra",
+                    "winner": null
+                },
+                {
+                    "team1": "azdazd",
+                    "team2": "zaefaefa",
+                    "winner": null
+                },
+                {
+                    "team1": "azféefgze",
+                    "team2": "aozdaze",
+                    "winner": null
+                },
+                {
+                    "team1": "azefaegzzaaze",
+                    "team2": "azerty",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    }
+]

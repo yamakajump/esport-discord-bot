@@ -17,8 +17,15 @@ module.exports = {
                 )
                 .addIntegerOption(option =>
                     option.setName('equipes')
-                        .setDescription('Nombre d\'équipes participantes.')
+                        .setDescription('Nombre d\'équipes participantes (2, 4, 8, 16, 32 uniquement).')
                         .setRequired(true)
+                        .addChoices(
+                            { name: '2 équipes', value: 2 },
+                            { name: '4 équipes', value: 4 },
+                            { name: '8 équipes', value: 8 },
+                            { name: '16 équipes', value: 16 },
+                            { name: '32 équipes', value: 32 }
+                        )
                 )
         )
         .addSubcommand(subcommand =>

@@ -23,21 +23,23 @@ module.exports = {
         }
 
         if (interaction.isModalSubmit()) {
-            const modalHandlerPath = path.join(__dirname, '../modals', `${interaction.customId}.js`);
+            const [modalName, ...params] = interaction.customId.split(':');
+            const modalHandlerPath = path.join(__dirname, '../modals', `${modalName}.js`);
+
             if (fs.existsSync(modalHandlerPath)) {
                 const modalHandler = require(modalHandlerPath);
                 try {
-                    await modalHandler.execute(interaction);
+                    await modalHandler.execute(interaction, params);
                 } catch (error) {
                     console.error(`Erreur lors du traitement du modal ${interaction.customId}:`, error);
                 }
             } else {
-                console.error(`Handler de modal ${interaction.customId} non trouvé.`);
+                console.error(`Handler de modal ${modalName} non trouvé.`);
             }
         }
 
         if (interaction.isButton()) {
-            // Diviser le customId pour extraire le nom et les paramètres
+            // Extraction du nom et des paramètres
             const [buttonName, ...params] = interaction.customId.split(':');
             const buttonHandlerPath = path.join(__dirname, '../buttons', `${buttonName}.js`);
 
@@ -50,6 +52,22 @@ module.exports = {
                 }
             } else {
                 console.error(`Handler de bouton ${buttonName} non trouvé.`);
+            }
+        }
+
+        if (interaction.isStringSelectMenu()) {
+            const [menuName, ...params] = interaction.customId.split(':');
+            const menuHandlerPath = path.join(__dirname, '../selectMenus', `${menuName}.js`);
+
+            if (fs.existsSync(menuHandlerPath)) {
+                const menuHandler = require(menuHandlerPath);
+                try {
+                    await menuHandler.execute(interaction, params);
+                } catch (error) {
+                    console.error(`Erreur lors du traitement du menu ${interaction.customId}:`, error);
+                }
+            } else {
+                console.error(`Handler de menu ${menuName} non trouvé.`);
             }
         }
     },
