@@ -4,7 +4,6 @@ const path = require('path');
 const { loadJson, saveJson } = require('./fileManager');
 
 const filePath = path.join(__dirname, '../data/tournois.json'); // Fichier JSON des tournois
-const outputPath = path.join(__dirname, '../data/brackets/'); // Dossier pour sauvegarder les images
 const bgImagePath = path.join(__dirname, '../images/bg.jpg');
 
 /**
@@ -67,7 +66,6 @@ function generateBracketStructure(tournoiId) {
     tournoi.bracket = rounds;
     saveJson(filePath, tournois);
 
-    console.log("✅ Bracket généré avec succès !");
     return true;
 }
 
@@ -274,12 +272,7 @@ async function generateTournamentBracketImage(tournoiId) {
         currentXRight += roundSpacing;
     }
 
-    // Sauvegarde de l’image
-    const imagePath = path.join(outputPath, `${tournoi.nom.replace(/\s+/g, '_')}.png`);
-    fs.writeFileSync(imagePath, canvas.toBuffer('image/png'));
-
-    console.log(`✅ Image du bracket générée : ${imagePath}`);
-    return imagePath;
+    return canvas.toBuffer('image/png');
 }
 
 module.exports = {
