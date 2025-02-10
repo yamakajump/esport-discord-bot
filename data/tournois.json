@@ -1,25 +1,285 @@
 [
     {
-        "id": "34860846-96b4-4e73-911a-ca97d71b48c7",
-        "nom": "test",
+        "id": "1c52aad4-06d7-45e9-a4e0-a571d25bb698",
+        "nom": "Yamakajump Vs HYSPA",
+        "maxEquipes": 2,
+        "equipes": [
+            "yamakajump",
+            "HYSPA"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-10T14:56:53.092Z",
+        "bracket": [
+            [
+                {
+                    "team1": "HYSPA",
+                    "team2": "yamakajump",
+                    "winner": "yamakajump"
+                }
+            ]
+        ]
+    },
+    {
+        "id": "a48a3d42-5ae9-4e9b-9741-7a1ed7c309b5",
+        "nom": "aaaa",
         "maxEquipes": 4,
+        "equipes": [
+            "a",
+            "b",
+            "c",
+            "d"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-10T15:15:50.993Z",
+        "bracket": [
+            [
+                {
+                    "team1": "d",
+                    "team2": "c",
+                    "winner": null
+                },
+                {
+                    "team1": "b",
+                    "team2": "a",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "d9386eec-9dd9-4dcc-a3b0-94bf1881cf54",
+        "nom": "test",
+        "maxEquipes": 8,
         "equipes": [
             "1",
             "2",
             "3",
-            "4"
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
         ],
         "createur": "690488124480028692",
-        "date": "2025-02-08T16:58:13.721Z",
+        "date": "2025-02-10T15:19:03.742Z",
         "bracket": [
             [
+                {
+                    "team1": "4",
+                    "team2": "3",
+                    "winner": null
+                },
+                {
+                    "team1": "6",
+                    "team2": "2",
+                    "winner": null
+                },
+                {
+                    "team1": "8",
+                    "team2": "1",
+                    "winner": null
+                },
+                {
+                    "team1": "5",
+                    "team2": "7",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "b564f297-e9f3-46ba-a1a1-deb949583339",
+        "nom": "ratio",
+        "maxEquipes": 8,
+        "equipes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-10T15:32:19.334Z",
+        "bracket": [
+            [
+                {
+                    "team1": "7",
+                    "team2": "8",
+                    "winner": "7"
+                },
                 {
                     "team1": "1",
                     "team2": "2",
                     "winner": null
                 },
                 {
+                    "team1": "3",
+                    "team2": "4",
+                    "winner": null
+                },
+                {
+                    "team1": "6",
+                    "team2": "5",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": "7",
+                    "team2": null,
+                    "winner": null
+                },
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": null,
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "8677ba6f-ae43-4b1d-8745-f532a5696360",
+        "nom": "azedsgrfb",
+        "maxEquipes": 8,
+        "equipes": [
+            "zegeaz",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-10T15:34:38.659Z",
+        "bracket": [
+            [
+                {
+                    "team1": "2",
+                    "team2": "8",
+                    "winner": "8"
+                },
+                {
+                    "team1": "7",
+                    "team2": "6",
+                    "winner": "7"
+                },
+                {
+                    "team1": "zegeaz",
+                    "team2": "3",
+                    "winner": "3"
+                },
+                {
                     "team1": "4",
+                    "team2": "5",
+                    "winner": null
+                }
+            ],
+            [
+                {
+                    "team1": "8",
+                    "team2": "7",
+                    "winner": null
+                },
+                {
+                    "team1": "3",
+                    "team2": null,
+                    "winner": "3"
+                }
+            ],
+            [
+                {
+                    "team1": null,
+                    "team2": "3",
+                    "winner": null
+                }
+            ]
+        ]
+    },
+    {
+        "id": "42759b8c-a6a3-4bbb-8db4-89c05f5a5a98",
+        "nom": "adazdgvzefgze",
+        "maxEquipes": 8,
+        "equipes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "createur": "690488124480028692",
+        "date": "2025-02-10T15:57:00.932Z",
+        "bracket": [
+            [
+                {
+                    "team1": "2",
+                    "team2": "4",
+                    "winner": "2"
+                },
+                {
+                    "team1": "5",
+                    "team2": "1",
+                    "winner": "5"
+                },
+                {
+                    "team1": "8",
+                    "team2": "6",
+                    "winner": null
+                },
+                {
+                    "team1": "7",
+                    "team2": "3",
+                    "winner": "3"
+                }
+            ],
+            [
+                {
+                    "team1": "2",
+                    "team2": "5",
+                    "winner": null
+                },
+                {
+                    "team1": null,
                     "team2": "3",
                     "winner": null
                 }

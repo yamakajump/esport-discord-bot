@@ -1,6 +1,6 @@
-const { AttachmentBuilder, EmbedBuilder } = require('discord.js');
+const { AttachmentBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 const { loadJson, saveJson } = require('../utils/fileManager');
-const { generateBracketStructure, generateTournamentBracketImage } = require('../utils/tournamentUtils');
+const { generateBracketStructure, generateTournamentBracketImage, getMatchesForSelectMenu } = require('../utils/tournamentUtils');
 const path = require('path');
 
 const filePath = path.join(__dirname, '../data/tournois.json');
@@ -50,15 +50,31 @@ module.exports = {
 
         // Vérification si le tournoi est complet
         if (tournoi.equipes.length === tournoi.maxEquipes) {
-            generateBracketStructure(tournoiId);
+            const success = generateBracketStructure(tournoiId);
+            if (!success) {
+                return interaction.reply({ content: `❌ Erreur lors de la génération du bracket.`, ephemeral: true });
+            }
+
             const bracketPath = await generateTournamentBracketImage(tournoiId);
             const attachment = new AttachmentBuilder(bracketPath);
+
+            // Récupération des matchs pour le StringSelectMenu
+            const matches = getMatchesForSelectMenu(tournoiId);
+
+            // Création du StringSelectMenu
+            const row = new ActionRowBuilder()
+                .addComponents(
+                    new StringSelectMenuBuilder()
+                        .setCustomId(`matchSelect:${tournoiId}`)
+                        .setPlaceholder('Choisissez un match en cours')
+                        .addOptions(matches)
+                );
 
             return interaction.update({
                 content: "✅ Tournoi complet ! Voici le bracket :",
                 files: [attachment],
                 embeds: [],
-                components: []
+                components: [row]
             });
         }
 

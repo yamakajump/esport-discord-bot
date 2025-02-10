@@ -83,7 +83,7 @@ async function generateTournamentBracketImage(tournoiId) {
     const totalTeams = tournoi.equipes.length;
     const canvasWidth = 1200;
     const canvasHeight = 800;
-    
+
     let boxWidth;
     if (totalTeams <= 4) {
         boxWidth = 200;
@@ -179,13 +179,13 @@ async function generateTournamentBracketImage(tournoiId) {
         if (roundNumber === 4) {
             ySpacing = canvasHeight / 20;
         } else if (roundNumber === 3) {
-            ySpacing = canvasHeight / 12; 
+            ySpacing = canvasHeight / 12;
         } else if (roundNumber === 2) {
             ySpacing = canvasHeight / 7;
         } else {
             ySpacing = canvasHeight / 3.75;
         }
-        
+
         // Pour retrouver dans le JSON le round correspondant,
         // on part du final (dernier round) et on remonte
         const jsonRoundIndex = tournoi.bracket.length - 1 - roundNumber;
@@ -266,7 +266,7 @@ async function generateTournamentBracketImage(tournoiId) {
         roundsLeft.push(newRoundLeft);
         roundsRight.push(newRoundRight);
 
-        roundNumber++; 
+        roundNumber++;
         currentTeams *= 2;
         currentXLeft -= roundSpacing;
         currentXRight += roundSpacing;
@@ -275,7 +275,41 @@ async function generateTournamentBracketImage(tournoiId) {
     return canvas.toBuffer('image/png');
 }
 
+/**
+ * Récupère les matchs pour le StringSelectMenu
+ * @param {string} tournoiId - ID du tournoi
+ * @returns {Array} - Liste des options pour le StringSelectMenu
+ */
+function getMatchesForSelectMenu(tournoiId) {
+    let tournois = loadJson(filePath, []);
+    let tournoi = tournois.find(t => t.id === tournoiId);
+
+    if (!tournoi || !tournoi.bracket) {
+        return [];
+    }
+
+    let matches = [];
+    let matchId = 0;
+
+    // Parcourir tous les rounds
+    for (let roundIndex = 0; roundIndex < tournoi.bracket.length; roundIndex++) {
+        const round = tournoi.bracket[roundIndex];
+        for (let match of round) {
+            if (match.team1 && match.team2 && !match.winner) {
+                matches.push({
+                    label: `${match.team1} vs ${match.team2}`,
+                    value: `${matchId}`
+                });
+                matchId++;
+            }
+        }
+    }
+
+    return matches;
+}
+
 module.exports = {
     generateBracketStructure,
-    generateTournamentBracketImage
+    generateTournamentBracketImage,
+    getMatchesForSelectMenu
 };
