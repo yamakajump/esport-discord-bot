@@ -2,6 +2,7 @@ const { createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
 const path = require('path');
 const { loadJson, saveJson } = require('./fileManager');
+const { match } = require('assert');
 
 const filePath = path.join(__dirname, '../data/tournois.json'); // Fichier JSON des tournois
 const bgImagePath = path.join(__dirname, '../images/bg.jpg');
@@ -300,9 +301,10 @@ function getMatchesForSelectMenu(tournoiId) {
                     label: `${match.team1} vs ${match.team2}`,
                     value: `${matchId}`
                 });
-                matchId++;
             }
+            matchId++;
         }
+        matchId = 0;
     }
 
     return matches;

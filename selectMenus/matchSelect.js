@@ -30,11 +30,12 @@ module.exports = {
                         matchFound = true;
                         break;
                     }
-                    currentMatchIndex++;
                 }
+                currentMatchIndex++;
             }
             if (matchFound) break;
             roundIndex++;
+            currentMatchIndex = 0;
         }
 
         if (!matchFound) {

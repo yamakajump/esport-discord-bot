@@ -44,20 +44,25 @@ module.exports = {
         // Récupérer les matchs pour le StringSelectMenu
         const matches = getMatchesForSelectMenu(tournoiId);
 
-        // Création du StringSelectMenu
-        const row = new ActionRowBuilder()
-            .addComponents(
-                new StringSelectMenuBuilder()
-                    .setCustomId(`matchSelect:${tournoiId}`)
-                    .setPlaceholder('Choisissez un match en cours')
-                    .addOptions(matches)
-            );
+        let components = [];
+        let content = "Tournois terminé !";
+        if (matches.length > 0) {
+            const row = new ActionRowBuilder()
+                .addComponents(
+                    new StringSelectMenuBuilder()
+                        .setCustomId(`matchSelect:${tournoiId}`)
+                        .setPlaceholder('Choisissez un match en cours')
+                        .addOptions(matches)
+                );
+            components.push(row);
+            content = "Voici les matchs disponibles :";
+        }
 
         // Réafficher la sélection de matchs et l'image du bracket
         await interaction.update({
-            content: "Voici les matchs disponibles :",
+            content: content,
             files: [attachment],
-            components: [row]
+            components: components
         });
     }
 };
