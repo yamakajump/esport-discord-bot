@@ -107,6 +107,16 @@ module.exports = {
             subcommand
                 .setName('delete')
                 .setDescription("Supprime un tournoi.")
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('logo')
+                .setDescription("Ajouter un logo pour une équipe.")
+                .addAttachmentOption(option =>
+                    option.setName('logo')
+                        .setDescription('Image du logo de l\'équipe.')
+                        .setRequired(true)
+                )
         ),
     async execute(interaction) {
         const subcommand = interaction.options.getSubcommand();

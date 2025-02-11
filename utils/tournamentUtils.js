@@ -1,8 +1,8 @@
+const { ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 const { createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
 const path = require('path');
 const { loadJson, saveJson } = require('./fileManager');
-const { match } = require('assert');
 
 const filePath = path.join(__dirname, '../data/tournois.json'); // Fichier JSON des tournois
 const tournoisDir = path.join(__dirname, '../data/tournois'); // Dossier des tournois
@@ -341,9 +341,44 @@ function supprimerUnTournoi(tournoiId) {
     return true;
 }
 
+/**
+ * Récupère les équipes pour le StringSelectMenu
+ * @param {Object} tournoi - Objet tournoi contenant les équipes
+ * @returns {Array} - Liste des options pour le StringSelectMenu
+ */
+function getTeamsForSelectMenu(tournoi) {
+    if (!tournoi.equipes || !Array.isArray(tournoi.equipes)) {
+        return [];
+    }
+
+    return tournoi.equipes.map(teamId => ({
+        label: `Équipe ${teamId}`, // Vous pouvez ajuster ce label selon vos besoins
+        value: teamId
+    }));
+}
+
+/**
+ * Crée un menu déroulant pour sélectionner une équipe dans un tournoi
+ * @param {Object} tournoi - Objet tournoi contenant les équipes
+ * @returns {ActionRowBuilder} - Composant ActionRowBuilder avec le menu déroulant
+ */
+function getTeamSelectMenu(tournoi) {
+    const teams = getTeamsForSelectMenu(tournoi);
+
+    const selectMenu = new StringSelectMenuBuilder()
+        .setCustomId(`selectTeamLogo:${tournoi.id}`)
+        .setPlaceholder('Sélectionnez l\'équipe')
+        .addOptions(teams);
+
+    const row = new ActionRowBuilder().addComponents(selectMenu);
+    return row;
+}
+
 module.exports = {
     generateBracketStructure,
     generateTournamentBracketImage,
     getMatchesForSelectMenu,
-    supprimerUnTournoi
+    supprimerUnTournoi,
+    getTeamsForSelectMenu,
+    getTeamSelectMenu
 };
