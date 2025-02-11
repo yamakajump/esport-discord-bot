@@ -46,11 +46,11 @@ module.exports = {
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId(`setWinner:${tournoiId}:${roundIndex}:${currentMatchIndex}:team1`)
-                    .setLabel(match.team1)
+                    .setLabel(match.team1.name)
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
                     .setCustomId(`setWinner:${tournoiId}:${roundIndex}:${currentMatchIndex}:team2`)
-                    .setLabel(match.team2)
+                    .setLabel(match.team2.name)
                     .setStyle(ButtonStyle.Primary)
             );
 

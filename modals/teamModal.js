@@ -2,6 +2,7 @@ const { AttachmentBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuild
 const { loadJson, saveJson } = require('../utils/fileManager');
 const { generateBracketStructure, generateTournamentBracketImage, getMatchesForSelectMenu } = require('../utils/tournamentUtils');
 const path = require('path');
+const { v4: uuidv4 } = require('uuid');
 
 const filePath = path.join(__dirname, '../data/tournois.json');
 
@@ -28,12 +29,15 @@ module.exports = {
             return interaction.reply({ content: `❌ Ce tournoi est déjà complet.`, ephemeral: true });
         }
 
-        if (tournoi.equipes.includes(teamName)) {
+        if (tournoi.equipes.some(team => team.name === teamName)) {
             return interaction.reply({ content: `❌ L'équipe **${teamName}** existe déjà.`, ephemeral: true });
         }
 
-        // Ajout de l'équipe
-        tournoi.equipes.push(teamName);
+        // Générer un UUID pour l'équipe
+        const teamId = uuidv4();
+
+        // Ajout de l'équipe avec id, name et logo
+        tournoi.equipes.push({ id: teamId, name: teamName, logo: null });
         saveJson(filePath, tournois);
 
         // Mise à jour de l'embed avec la nouvelle liste des équipes
@@ -45,7 +49,7 @@ module.exports = {
 
         // Ajout de la liste des équipes actuelles
         if (tournoi.equipes.length > 0) {
-            updatedEmbed.addFields({ name: "📌 Équipes :", value: tournoi.equipes.map(team => `- ${team}`).join("\n") });
+            updatedEmbed.addFields({ name: "📌 Équipes :", value: tournoi.equipes.map(team => `- ${team.name}`).join("\n") });
         }
 
         // Vérification si le tournoi est complet

@@ -6,6 +6,7 @@ const { loadJson, saveJson } = require('./fileManager');
 
 const filePath = path.join(__dirname, '../data/tournois.json'); // Fichier JSON des tournois
 const tournoisDir = path.join(__dirname, '../data/tournois'); // Dossier des tournois
+const defaultImagePath = path.join(__dirname, '../images/bg.png');
 
 /**
  * Mélange un tableau aléatoirement
@@ -76,7 +77,7 @@ function generateBracketStructure(tournoiId) {
  * @returns {string|null} - Chemin de l’image générée ou null si erreur
  */
 async function generateTournamentBracketImage(tournoiId) {
-    let tournois = loadJson(filePath, []);
+    let tournois = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     let tournoi = tournois.find(t => t.id === tournoiId);
 
     if (!tournoi || !tournoi.bracket) return null;
@@ -144,17 +145,17 @@ async function generateTournamentBracketImage(tournoiId) {
 
     // Encadré du gagnant (on affiche le nom du gagnant s'il n'est pas null, sinon l'emoji trophée)
     ctx.strokeRect(centerX - boxWidth / 2, centerY - boxHeight / 2 - boxWinnerHeight, boxWidth, boxHeight + 20);
-    ctx.fillText(finalMatch && finalMatch.winner ? finalMatch.winner : "🏆", centerX, centerY - boxWinnerHeight + 10);
+    ctx.fillText(finalMatch && finalMatch.winner ? finalMatch.winner.name : "🏆", centerX, centerY - boxWinnerHeight + 10);
 
     // 📌 **3ème étape : Générer les 2 encadrés des équipes finalistes**
     const leftX = centerX - finalRoundSpacing;
     const rightX = centerX + finalRoundSpacing;
 
     ctx.strokeRect(leftX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
-    ctx.fillText(finalMatch && finalMatch.team1 ? finalMatch.team1 : "???", leftX, centerY);
+    ctx.fillText(finalMatch && finalMatch.team1 ? finalMatch.team1.name : "???", leftX, centerY);
 
     ctx.strokeRect(rightX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
-    ctx.fillText(finalMatch && finalMatch.team2 ? finalMatch.team2 : "???", rightX, centerY);
+    ctx.fillText(finalMatch && finalMatch.team2 ? finalMatch.team2.name : "???", rightX, centerY);
 
     // 📌 **4ème étape : Connecter les finalistes à l'encadré du gagnant**
     ctx.beginPath();
@@ -206,10 +207,10 @@ async function generateTournamentBracketImage(tournoiId) {
             // Récupération du match pour la paire courante
             const match = roundMatches[leftCounter] || {};
             ctx.strokeRect(x - boxWidth / 2, y1 - boxHeight / 2, boxWidth, boxHeight);
-            ctx.fillText(match.team1 ? match.team1 : "???", x, y1);
+            ctx.fillText(match.team1 ? match.team1.name : "???", x, y1);
 
             ctx.strokeRect(x - boxWidth / 2, y2 - boxHeight / 2, boxWidth, boxHeight);
-            ctx.fillText(match.team2 ? match.team2 : "???", x, y2);
+            ctx.fillText(match.team2 ? match.team2.name : "???", x, y2);
 
             // Tracer les lignes reliant les encadrés au round suivant
             ctx.beginPath();
@@ -241,10 +242,10 @@ async function generateTournamentBracketImage(tournoiId) {
 
             const match = roundMatches[rightCounter] || {};
             ctx.strokeRect(x - boxWidth / 2, y1 - boxHeight / 2, boxWidth, boxHeight);
-            ctx.fillText(match.team1 ? match.team1 : "???", x, y1);
+            ctx.fillText(match.team1 ? match.team1.name : "???", x, y1);
 
             ctx.strokeRect(x - boxWidth / 2, y2 - boxHeight / 2, boxWidth, boxHeight);
-            ctx.fillText(match.team2 ? match.team2 : "???", x, y2);
+            ctx.fillText(match.team2 ? match.team2.name : "???", x, y2);
 
             ctx.beginPath();
             ctx.moveTo(pos.x + boxWidth / 2, pos.y);
@@ -298,8 +299,10 @@ function getMatchesForSelectMenu(tournoiId) {
         const round = tournoi.bracket[roundIndex];
         for (let match of round) {
             if (match.team1 && match.team2 && !match.winner) {
+                const team1Name = match.team1.name;
+                const team2Name = match.team2.name;
                 matches.push({
-                    label: `${match.team1} vs ${match.team2}`,
+                    label: `${team1Name} vs ${team2Name}`,
                     value: `${matchId}`
                 });
             }
@@ -310,6 +313,7 @@ function getMatchesForSelectMenu(tournoiId) {
 
     return matches;
 }
+
 
 /**
  * Supprime un tournoi du fichier JSON et son dossier correspondant.
@@ -351,9 +355,9 @@ function getTeamsForSelectMenu(tournoi) {
         return [];
     }
 
-    return tournoi.equipes.map(teamId => ({
-        label: `Équipe ${teamId}`, // Vous pouvez ajuster ce label selon vos besoins
-        value: teamId
+    return tournoi.equipes.map(team => ({
+        label: `Équipe ${team.name}`, // Utiliser le nom de l'équipe pour le label
+        value: team.id // Utiliser l'ID de l'équipe pour la valeur
     }));
 }
 

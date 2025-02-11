@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
 
 const filePath = path.join(__dirname, '../data/tournois.json');
 const tempLogoPath = path.join(__dirname, '../data/logos');
@@ -19,7 +18,7 @@ module.exports = {
             });
         }
 
-        const selectedTeamIndex = selectedTournoi.equipes.indexOf(selectedTeamId);
+        const selectedTeamIndex = selectedTournoi.equipes.findIndex(team => team.id === selectedTeamId);
 
         if (selectedTeamIndex === -1) {
             return interaction.reply({
@@ -36,19 +35,16 @@ module.exports = {
         if (!fs.existsSync(logoDir)) {
             fs.mkdirSync(logoDir, { recursive: true });
         }
-        const logoFileName = `${uuidv4()}.png`;
+        const logoFileName = `${selectedTeamId}.png`;
         const logoFilePath = path.join(logoDir, logoFileName);
         fs.copyFileSync(tempLogoFilePath, logoFilePath);
 
         // Mettre à jour le JSON des tournois
-        selectedTournoi.equipes[selectedTeamIndex] = {
-            name: selectedTeamId,
-            logo: logoFilePath
-        };
+        selectedTournoi.equipes[selectedTeamIndex].logo = logoFilePath;
         fs.writeFileSync(filePath, JSON.stringify(tournois, null, 2), 'utf8');
 
         await interaction.update({
-            content: `Logo de l'équipe "${selectedTeamId}" ajouté avec succès!`,
+            content: `Logo de l'équipe "${selectedTournoi.equipes[selectedTeamIndex].name}" ajouté avec succès!`,
             components: [],
             ephemeral: true
         });
