@@ -59,7 +59,7 @@ function generateBracketStructure(tournoiId) {
     while (currentRound.length > 1) {
         let nextRound = [];
         for (let i = 0; i < currentRound.length; i += 2) {
-            nextRound.push({ team1: null, team2: null, winner: null }); // Placeholders pour les vainqueurs
+            nextRound.push({ team1: {"id": null, "name": null, "logo": null}, team2: {"id": null, "name": null, "logo": null}, winner: null }); // Placeholders pour les vainqueurs
         }
         rounds.push(nextRound);
         currentRound = nextRound;
