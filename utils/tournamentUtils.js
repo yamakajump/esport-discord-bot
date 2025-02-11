@@ -154,8 +154,20 @@ async function generateTournamentBracketImage(tournoiId) {
     ctx.strokeRect(leftX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
     ctx.fillText(finalMatch && finalMatch.team1 ? finalMatch.team1.name : "???", leftX, centerY);
 
+    const team1LogoPath = finalMatch.team1.logo;
+    if (team1LogoPath) {
+        const team1Logo = await loadImage(team1LogoPath);
+        ctx.drawImage(team1Logo, leftX - boxWidth / 2, centerY - boxHeight / 2, boxHeight, boxHeight);
+    }
+
     ctx.strokeRect(rightX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
     ctx.fillText(finalMatch && finalMatch.team2 ? finalMatch.team2.name : "???", rightX, centerY);
+
+    const team2LogoPath = finalMatch.team2.logo;
+    if (team2LogoPath) {
+        const team2Logo = await loadImage(team2LogoPath);
+        ctx.drawImage(team2Logo, rightX - boxWidth / 2, centerY - boxHeight / 2, boxHeight, boxHeight);
+    }
 
     // 📌 **4ème étape : Connecter les finalistes à l'encadré du gagnant**
     ctx.beginPath();
@@ -199,7 +211,7 @@ async function generateTournamentBracketImage(tournoiId) {
 
         // Pour la partie gauche, on récupère la première moitié des matchs de ce round
         let leftCounter = 0;
-        roundsLeft[roundsLeft.length - 1].forEach(pos => {
+        roundsLeft[roundsLeft.length - 1].forEach(async pos => {
             const y1 = pos.y - ySpacing + boxHeight / 2;
             const y2 = pos.y + ySpacing - boxHeight / 2;
             const x = currentXLeft;
@@ -209,8 +221,20 @@ async function generateTournamentBracketImage(tournoiId) {
             ctx.strokeRect(x - boxWidth / 2, y1 - boxHeight / 2, boxWidth, boxHeight);
             ctx.fillText(match.team1 ? match.team1.name : "???", x, y1);
 
+            const team1LogoPath = match.team1.logo;
+            if (team1LogoPath) {
+                const team1Logo = await loadImage(team1LogoPath);
+                ctx.drawImage(team1Logo, x - boxWidth / 2, y1 - boxHeight / 2, boxHeight, boxHeight);
+            }
+
             ctx.strokeRect(x - boxWidth / 2, y2 - boxHeight / 2, boxWidth, boxHeight);
             ctx.fillText(match.team2 ? match.team2.name : "???", x, y2);
+
+            const team2LogoPath = match.team2.logo;
+            if (team2LogoPath) {
+                const team2Logo = await loadImage(team2LogoPath);
+                ctx.drawImage(team2Logo, x - boxWidth / 2, y2 - boxHeight / 2, boxHeight, boxHeight);
+            }
 
             // Tracer les lignes reliant les encadrés au round suivant
             ctx.beginPath();
@@ -235,7 +259,7 @@ async function generateTournamentBracketImage(tournoiId) {
         // Pour la partie droite, on récupère la deuxième moitié des matchs du round
         // On commence à l'index égal à la moitié de la longueur
         let rightCounter = Math.floor(roundMatches.length / 2);
-        roundsRight[roundsRight.length - 1].forEach(pos => {
+        roundsRight[roundsRight.length - 1].forEach(async pos => {
             const y1 = pos.y - ySpacing + boxHeight / 2;
             const y2 = pos.y + ySpacing - boxHeight / 2;
             const x = currentXRight;
@@ -244,8 +268,20 @@ async function generateTournamentBracketImage(tournoiId) {
             ctx.strokeRect(x - boxWidth / 2, y1 - boxHeight / 2, boxWidth, boxHeight);
             ctx.fillText(match.team1 ? match.team1.name : "???", x, y1);
 
+            const team1LogoPath = match.team1.logo;
+            if (team1LogoPath) {
+                const team1Logo = await loadImage(team1LogoPath);
+                ctx.drawImage(team1Logo, x - boxWidth / 2, y1 - boxHeight / 2, boxHeight, boxHeight);
+            }
+
             ctx.strokeRect(x - boxWidth / 2, y2 - boxHeight / 2, boxWidth, boxHeight);
             ctx.fillText(match.team2 ? match.team2.name : "???", x, y2);
+
+            const team2LogoPath = match.team2.logo;
+            if (team2LogoPath) {
+                const team2Logo = await loadImage(team2LogoPath);
+                ctx.drawImage(team2Logo, x - boxWidth / 2, y2 - boxHeight / 2, boxHeight, boxHeight);
+            }
 
             ctx.beginPath();
             ctx.moveTo(pos.x + boxWidth / 2, pos.y);

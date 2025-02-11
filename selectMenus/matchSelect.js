@@ -55,7 +55,7 @@ module.exports = {
             );
 
         await interaction.update({
-            content: `Choisissez le vainqueur pour le match: ${match.team1} vs ${match.team2}`,
+            content: `Choisissez le vainqueur pour le match: ${match.team1.name} vs ${match.team2.name}`,
             components: [row]
         });
     }
