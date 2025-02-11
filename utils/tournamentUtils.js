@@ -105,6 +105,7 @@ async function generateTournamentBracketImage(tournoiId) {
     const ctx = canvas.getContext('2d');
 
     // Charger l'image de fond
+    let bgImagePath = tournoi.fondImagePath || defaultImagePath;
     try {
         const bgImage = await loadImage(bgImagePath);
         ctx.drawImage(bgImage, 0, 0, canvasWidth, canvasHeight);
@@ -114,24 +115,24 @@ async function generateTournamentBracketImage(tournoiId) {
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     }
 
-    // Style néon orange
-    ctx.strokeStyle = '#FF8C00';
+    // Style néon
+    ctx.strokeStyle = tournoi.couleurNeon;
     ctx.lineWidth = 4;
     ctx.shadowBlur = 10;
-    ctx.shadowColor = '#FF4500';
+    ctx.shadowColor = tournoi.couleurNeon;
     ctx.font = '20px Arial';
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = tournoi.couleurNomsEquipes;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
     // 📌 **1ère étape : Ajouter le titre du tournoi**
     ctx.font = '40px Arial'; // Taille plus grande pour le titre
-    ctx.fillStyle = '#FF8C00'; // Couleur or pour différencier du reste
+    ctx.fillStyle = tournoi.couleurTitre; // Couleur du titre
     ctx.fillText(tournoi.nom.toUpperCase(), canvasWidth / 2, 50); // Centrage horizontal
 
     // Retour au style de texte par défaut
     ctx.font = '20px Arial';
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = tournoi.couleurNomsEquipes;
 
     // 📌 **2ème étape : Générer la finale unique au centre haut**
     const centerX = canvasWidth / 2;
@@ -309,6 +310,8 @@ function getMatchesForSelectMenu(tournoiId) {
 
     return matches;
 }
+
+
 
 module.exports = {
     generateBracketStructure,

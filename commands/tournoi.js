@@ -27,6 +27,71 @@ module.exports = {
                             { name: '32 équipes', value: 32 }
                         )
                 )
+                .addStringOption(option =>
+                    option.setName('date')
+                        .setDescription('Date du tournoi au format JJ/MM/AAAA.')
+                )
+                .addStringOption(option =>
+                    option.setName('couleur_neon')
+                        .setDescription('Couleur des néons.')
+                        .addChoices(
+                            { name: 'Blanc ⚪', value: 'blanc' },
+                            { name: 'Noir ⚫', value: 'noir' },
+                            { name: 'Rouge 🔴', value: 'rouge' },
+                            { name: 'Bleu 🔵', value: 'bleu' },
+                            { name: 'Marron 🟤', value: 'marron' },
+                            { name: 'Violette 🟣', value: 'violette' },
+                            { name: 'Vert 🟢', value: 'vert' },
+                            { name: 'Jaune 🟡', value: 'jaune' },
+                            { name: 'Orange 🟠', value: 'orange' }
+                        )
+                )
+                .addStringOption(option =>
+                    option.setName('couleur_neon_hex')
+                        .setDescription('Couleur des néons en hexadécimal (#FFFFFF).')
+                )
+                .addStringOption(option =>
+                    option.setName('couleur_noms_equipes')
+                        .setDescription('Couleur des noms des équipes.')
+                        .addChoices(
+                            { name: 'Blanc ⚪', value: 'blanc' },
+                            { name: 'Noir ⚫', value: 'noir' },
+                            { name: 'Rouge 🔴', value: 'rouge' },
+                            { name: 'Bleu 🔵', value: 'bleu' },
+                            { name: 'Marron 🟤', value: 'marron' },
+                            { name: 'Violette 🟣', value: 'violette' },
+                            { name: 'Vert 🟢', value: 'vert' },
+                            { name: 'Jaune 🟡', value: 'jaune' },
+                            { name: 'Orange 🟠', value: 'orange' }
+                        )
+                )
+                .addStringOption(option =>
+                    option.setName('couleur_noms_equipes_hex')
+                        .setDescription('Couleur des noms des équipes en hexadécimal (#FFFFFF).')
+                )
+                .addStringOption(option =>
+                    option.setName('couleur_titre')
+                        .setDescription('Couleur du titre.')
+                        .addChoices(
+                            { name: 'Blanc ⚪', value: 'blanc' },
+                            { name: 'Noir ⚫', value: 'noir' },
+                            { name: 'Rouge 🔴', value: 'rouge' },
+                            { name: 'Bleu 🔵', value: 'bleu' },
+                            { name: 'Marron 🟤', value: 'marron' },
+                            { name: 'Violette 🟣', value: 'violette' },
+                            { name: 'Vert 🟢', value: 'vert' },
+                            { name: 'Jaune 🟡', value: 'jaune' },
+                            { name: 'Orange 🟠', value: 'orange' }
+                        )
+                )
+                .addStringOption(option =>
+                    option.setName('couleur_titre_hex')
+                        .setDescription('Couleur du titre en hexadécimal (#FFFFFF).')
+                )
+                .addAttachmentOption(option =>
+                    option.setName('image_fond')
+                        .setDescription('Image de fond pour le bracket.')
+                )
         )
         .addSubcommand(subcommand =>
             subcommand
