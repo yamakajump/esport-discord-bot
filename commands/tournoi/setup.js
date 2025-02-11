@@ -121,7 +121,7 @@ module.exports = {
                     .setLabel('Ajouter une équipe')
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
-                    .setCustomId(`cancelTournament:${tournoiId}`)
+                    .setCustomId(`confirmDelete:${tournoiId}`)
                     .setLabel('Abandonner la création')
                     .setStyle(ButtonStyle.Danger)
             );

@@ -1,5 +1,6 @@
 const { loadJson, saveJson } = require('../utils/fileManager');
 const path = require('path');
+const { supprimerUnTournoi } = require('../utils/tournamentUtils'); // Importer la fonction
 
 const filePath = path.join(__dirname, '../data/tournois.json');
 
@@ -24,13 +25,20 @@ module.exports = {
             });
         }
 
-        tournois.splice(tournoiIndex, 1);
-        saveJson(filePath, tournois);
+        // Utiliser la fonction pour supprimer le tournoi
+        const success = supprimerUnTournoi(tournoiId);
 
-        return interaction.update({
-            content: `✅ Tournoi supprimé avec succès.`,
-            embeds: [],
-            components: []
-        });
+        if (success) {
+            return interaction.update({
+                content: `✅ Tournoi supprimé avec succès.`,
+                embeds: [],
+                components: []
+            });
+        } else {
+            return interaction.reply({
+                content: `❌ Une erreur est survenue lors de la suppression du tournoi.`,
+                ephemeral: true
+            });
+        }
     }
 };

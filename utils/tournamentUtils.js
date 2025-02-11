@@ -5,7 +5,7 @@ const { loadJson, saveJson } = require('./fileManager');
 const { match } = require('assert');
 
 const filePath = path.join(__dirname, '../data/tournois.json'); // Fichier JSON des tournois
-const bgImagePath = path.join(__dirname, '../images/bg.jpg');
+const tournoisDir = path.join(__dirname, '../data/tournois'); // Dossier des tournois
 
 /**
  * Mélange un tableau aléatoirement
@@ -311,10 +311,39 @@ function getMatchesForSelectMenu(tournoiId) {
     return matches;
 }
 
+/**
+ * Supprime un tournoi du fichier JSON et son dossier correspondant.
+ * @param {string} tournoiId - ID du tournoi à supprimer
+ * @returns {boolean} - True si le tournoi a été supprimé avec succès, sinon False
+ */
+function supprimerUnTournoi(tournoiId) {
+    let tournois = loadJson(filePath, []);
+    const index = tournois.findIndex(t => t.id === tournoiId);
 
+    if (index === -1) {
+        console.error(`Tournoi avec l'ID ${tournoiId} non trouvé.`);
+        return false;
+    }
+
+    // Supprimer le tournoi du fichier JSON
+    tournois.splice(index, 1);
+    saveJson(filePath, tournois);
+
+    // Supprimer le dossier du tournoi
+    const tournoiDir = path.join(tournoisDir, tournoiId);
+    if (fs.existsSync(tournoiDir)) {
+        fs.rmdirSync(tournoiDir, { recursive: true });
+    } else {
+        console.error(`Dossier du tournoi avec l'ID ${tournoiId} non trouvé.`);
+        return false;
+    }
+
+    return true;
+}
 
 module.exports = {
     generateBracketStructure,
     generateTournamentBracketImage,
-    getMatchesForSelectMenu
+    getMatchesForSelectMenu,
+    supprimerUnTournoi
 };
