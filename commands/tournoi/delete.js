@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, EmbedBuilder } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, EmbedBuilder, MessageFlags } = require('discord.js');
 const { loadJson } = require('../../utils/fileManager');
 const path = require('path');
 
@@ -14,7 +14,7 @@ module.exports = {
         if (userTournois.length === 0) {
             return interaction.reply({
                 content: "❌ Vous n'avez aucun tournoi à supprimer.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -39,7 +39,7 @@ module.exports = {
                         .setStyle(ButtonStyle.Secondary)
                 );
 
-            return interaction.reply({ embeds: [embed], components: [row], ephemeral: true });
+            return interaction.reply({ embeds: [embed], components: [row], flags: MessageFlags.Ephemeral });
         }
 
         // ✅ Si l'utilisateur a **plusieurs tournois**, on affiche un menu déroulant
@@ -56,7 +56,7 @@ module.exports = {
         return interaction.reply({
             content: "📋 Sélectionnez un tournoi à supprimer :",
             components: [row],
-            ephemeral: true
+            flags: MessageFlags.Ephemeral
         });
     }
 };

@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, MessageFlags } = require('discord.js');
 const { loadJson } = require('../../utils/fileManager');
 const path = require('path');
 
@@ -20,7 +20,7 @@ module.exports = {
                 content: utilisateur
                     ? `📭 Aucun tournoi trouvé pour **${utilisateur.username}**.`
                     : "📭 Aucun tournoi créé pour le moment.",
-                ephemeral: true
+                    flags: MessageFlags.Ephemeral
             });
         }
 
@@ -39,6 +39,6 @@ module.exports = {
             });
         });
 
-        return interaction.reply({ embeds: [embed], ephemeral: false });
+        return interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
     }
 };

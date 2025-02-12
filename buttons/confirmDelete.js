@@ -1,4 +1,5 @@
-const { loadJson, saveJson } = require('../utils/fileManager');
+const { MessageFlags } = require('discord.js');
+const { loadJson } = require('../utils/fileManager');
 const path = require('path');
 const { supprimerUnTournoi } = require('../utils/tournamentUtils'); // Importer la fonction
 
@@ -14,14 +15,14 @@ module.exports = {
         if (tournoiIndex === -1) {
             return interaction.reply({
                 content: `❌ Ce tournoi n'existe plus.`,
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
         if (tournois[tournoiIndex].createur !== interaction.user.id) {
             return interaction.reply({
                 content: "❌ Vous ne pouvez supprimer que vos propres tournois.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -37,7 +38,7 @@ module.exports = {
         } else {
             return interaction.reply({
                 content: `❌ Une erreur est survenue lors de la suppression du tournoi.`,
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
     }

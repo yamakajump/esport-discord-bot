@@ -1,3 +1,4 @@
+const { MessageFlags } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const { getTeamSelectMenu } = require('../utils/tournamentUtils');
@@ -13,7 +14,7 @@ module.exports = {
         if (!selectedTournoi) {
             return interaction.reply({
                 content: "❌ Tournoi non trouvé.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -23,7 +24,7 @@ module.exports = {
         await interaction.update({
             content: `📋 Sélectionnez une équipe pour le tournoi "${selectedTournoi.nom}" :`,
             components: [row],
-            ephemeral: true
+            flags: MessageFlags.Ephemeral
         });
     }
 };

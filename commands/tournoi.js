@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -129,7 +129,7 @@ module.exports = {
             console.error(`Erreur lors de l'exécution de la sous-commande ${subcommand}:`, error);
             await interaction.reply({
                 content: `Une erreur est survenue lors de l'exécution de la commande \`${subcommand}\`.`,
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral
             });
         }
     },

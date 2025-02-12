@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags } = require('discord.js');
 const { loadJson } = require('../utils/fileManager');
 const { getTeamNameById } = require('../utils/tournamentUtils');
 const path = require('path');
@@ -14,7 +14,7 @@ module.exports = {
         let tournoi = tournois.find(t => t.id === tournoiId);
 
         if (!tournoi) {
-            return interaction.reply({ content: `❌ Ce tournoi n'existe plus.`, ephemeral: true });
+            return interaction.reply({ content: `❌ Ce tournoi n'existe plus.`, flags: MessageFlags.Ephemeral });
         }
 
         let matchFound = false;
@@ -42,7 +42,7 @@ module.exports = {
         }
 
         if (!matchFound) {
-            return interaction.reply({ content: `❌ Match non trouvé.`, ephemeral: true });
+            return interaction.reply({ content: `❌ Match non trouvé.`, flags: MessageFlags.Ephemeral });
         }
 
         const team1Name = getTeamNameById(tournoiId, match.team1);

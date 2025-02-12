@@ -1,4 +1,4 @@
-const { AttachmentBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+MessageFlags
 const { loadJson, saveJson } = require('../utils/fileManager');
 const { generateBracketStructure, generateTournamentBracketImage, getMatchesForSelectMenu } = require('../utils/tournamentUtils');
 const path = require('path');
@@ -11,7 +11,7 @@ module.exports = {
         if (!params || params.length === 0) {
             return interaction.reply({
                 content: "❌ Erreur interne : ID du tournoi manquant.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -22,15 +22,15 @@ module.exports = {
         let tournoi = tournois.find(t => t.id === tournoiId);
 
         if (!tournoi) {
-            return interaction.reply({ content: `❌ Ce tournoi n'existe plus.`, ephemeral: true });
+            return interaction.reply({ content: `❌ Ce tournoi n'existe plus.`, flags: MessageFlags.Ephemeral });
         }
 
         if (tournoi.equipes.length >= tournoi.maxEquipes) {
-            return interaction.reply({ content: `❌ Ce tournoi est déjà complet.`, ephemeral: true });
+            return interaction.reply({ content: `❌ Ce tournoi est déjà complet.`, flags: MessageFlags.Ephemeral });
         }
 
         if (tournoi.equipes.some(team => team.name === teamName)) {
-            return interaction.reply({ content: `❌ L'équipe **${teamName}** existe déjà.`, ephemeral: true });
+            return interaction.reply({ content: `❌ L'équipe **${teamName}** existe déjà.`, flags: MessageFlags.Ephemeral });
         }
 
         // Générer un UUID pour l'équipe
@@ -56,7 +56,7 @@ module.exports = {
         if (tournoi.equipes.length === tournoi.maxEquipes) {
             const success = generateBracketStructure(tournoiId);
             if (!success) {
-                return interaction.reply({ content: `❌ Erreur lors de la génération du bracket.`, ephemeral: true });
+                return interaction.reply({ content: `❌ Erreur lors de la génération du bracket.`, flags: MessageFlags.Ephemeral });
             }
 
             const bracketPath = await generateTournamentBracketImage(tournoiId);

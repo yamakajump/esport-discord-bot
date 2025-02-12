@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags } = require('discord.js');
 const { loadJson, saveJson } = require('../../utils/fileManager');
 const path = require('path');
 const fs = require('fs');
@@ -42,7 +42,7 @@ module.exports = {
         if (!allowedTeamSizes.includes(maxEquipes)) {
             return interaction.reply({
                 content: `❌ Le nombre d'équipes doit être **2, 4, 8, 16 ou 32**. Vous avez entré **${maxEquipes}**.`,
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -52,7 +52,7 @@ module.exports = {
         if (tournois.some(t => t.nom === nom)) {
             return interaction.reply({
                 content: `❌ Un tournoi avec le nom \`${nom}\` existe déjà.`,
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 

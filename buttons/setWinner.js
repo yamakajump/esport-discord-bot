@@ -1,3 +1,4 @@
+const { MessageFlags } = require('discord.js');
 const { loadJson, saveJson } = require('../utils/fileManager');
 const { getMatchesForSelectMenu, generateTournamentBracketImage } = require('../utils/tournamentUtils');
 const { AttachmentBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
@@ -15,13 +16,13 @@ module.exports = {
         let tournoi = tournois.find(t => t.id === tournoiId);
 
         if (!tournoi) {
-            return interaction.reply({ content: `❌ Ce tournoi n'existe plus.`, ephemeral: true });
+            return interaction.reply({ content: `❌ Ce tournoi n'existe plus.`, flags: MessageFlags.Ephemeral });
         }
 
         const match = tournoi.bracket[roundIndexInt][matchIndexInt];
 
         if (!match) {
-            return interaction.reply({ content: `❌ Match non trouvé.`, ephemeral: true });
+            return interaction.reply({ content: `❌ Match non trouvé.`, flags: MessageFlags.Ephemeral });
         }
 
         match.winner = match[winnerTeam];

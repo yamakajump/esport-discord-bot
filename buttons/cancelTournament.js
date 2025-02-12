@@ -1,3 +1,4 @@
+const { MessageFlags } = require('discord.js');
 const { loadJson, saveJson } = require('../utils/fileManager');
 const path = require('path');
 
@@ -8,7 +9,7 @@ module.exports = {
         if (!params || params.length === 0) {
             return interaction.reply({
                 content: "❌ Erreur interne : ID du tournoi manquant.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -20,14 +21,14 @@ module.exports = {
         if (tournoiIndex === -1) {
             return interaction.reply({
                 content: `❌ Tournoi introuvable.`,
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
         if (tournois[tournoiIndex].createur !== interaction.user.id) {
             return interaction.reply({
                 content: "❌ Vous ne pouvez supprimer que les tournois que vous avez créés.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 

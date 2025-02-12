@@ -450,7 +450,7 @@ function supprimerUnTournoi(tournoiId) {
     // Supprimer le dossier du tournoi
     const tournoiDir = path.join(tournoisDir, tournoiId);
     if (fs.existsSync(tournoiDir)) {
-        fs.rmdirSync(tournoiDir, { recursive: true });
+        fs.rmSync(tournoiDir, { recursive: true });
     } else {
         console.error(`Dossier du tournoi avec l'ID ${tournoiId} non trouvé.`);
         return false;

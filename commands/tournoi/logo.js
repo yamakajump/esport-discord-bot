@@ -1,4 +1,4 @@
-const { ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+const { ActionRowBuilder, StringSelectMenuBuilder, MessageFlags } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
@@ -15,7 +15,7 @@ module.exports = {
         if (!logoAttachment) {
             return interaction.reply({
                 content: 'Veuillez fournir une image pour le logo de l\'équipe.',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -43,7 +43,7 @@ module.exports = {
         if (userTournois.length === 0) {
             return interaction.reply({
                 content: "❌ Vous n'avez aucun tournoi.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -54,14 +54,14 @@ module.exports = {
             if (teams.length === 0) {
                 return interaction.reply({
                     content: "❌ Ce tournoi n'a pas d'équipes.",
-                    ephemeral: true
+                    flags: MessageFlags.Ephemeral
                 });
             }
             const row = getTeamSelectMenu(tournoi);
             return interaction.reply({
                 content: `📋 Sélectionnez une équipe pour le tournoi "${tournoi.nom}" :`,
                 components: [row],
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -79,7 +79,7 @@ module.exports = {
         await interaction.reply({
             content: "📋 Sélectionnez un tournoi :",
             components: [row],
-            ephemeral: true
+            flags: MessageFlags.Ephemeral
         });
     }
 };

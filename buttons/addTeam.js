@@ -1,11 +1,11 @@
-const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
+const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, MessageFlags } = require('discord.js');
 
 module.exports = {
     async execute(interaction, params) {
         if (!params || params.length === 0) {
             return interaction.reply({
                 content: "❌ Erreur interne : ID du tournoi manquant.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 

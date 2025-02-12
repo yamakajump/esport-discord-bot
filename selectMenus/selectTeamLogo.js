@@ -1,3 +1,4 @@
+const { MessageFlags } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -14,7 +15,7 @@ module.exports = {
         if (!selectedTournoi) {
             return interaction.reply({
                 content: "❌ Tournoi non trouvé.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -23,7 +24,7 @@ module.exports = {
         if (selectedTeamIndex === -1) {
             return interaction.reply({
                 content: "❌ Équipe non trouvée.",
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
             });
         }
 
@@ -46,7 +47,7 @@ module.exports = {
         await interaction.update({
             content: `Logo de l'équipe "${selectedTournoi.equipes[selectedTeamIndex].name}" ajouté avec succès!`,
             components: [],
-            ephemeral: true
+            flags: MessageFlags.Ephemeral
         });
 
         // Supprimer le logo temporaire
