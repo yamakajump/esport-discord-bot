@@ -57,11 +57,15 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId(`setWinner:${tournoiId}:${roundIndex}:${indexMatchInRound}:team2`)
                     .setLabel(team2Name)
-                    .setStyle(ButtonStyle.Primary)
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId(`returnToSelection:${tournoiId}`)
+                    .setLabel('Retour')
+                    .setStyle(ButtonStyle.Danger)
             );
 
         await interaction.update({
-            content: `Choisissez le vainqueur pour le match: ${match.team1.name} vs ${match.team2.name}`,
+            content: `Choisissez le vainqueur pour le match: ${team1Name} vs ${team2Name}`,
             components: [row]
         });
     }

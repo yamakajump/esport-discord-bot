@@ -1,4 +1,4 @@
-MessageFlags
+const { MessageFlags, EmbedBuilder, AttachmentBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 const { loadJson, saveJson } = require('../utils/fileManager');
 const { generateBracketStructure, generateTournamentBracketImage, getMatchesForSelectMenu } = require('../utils/tournamentUtils');
 const path = require('path');
