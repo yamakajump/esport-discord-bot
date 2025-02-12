@@ -9,6 +9,42 @@ const tournoisDir = path.join(__dirname, '../data/tournois'); // Dossier des tou
 const defaultImagePath = path.join(__dirname, '../images/bg.png');
 
 /**
+ * Récupère les informations d'une équipe par son ID
+ * @param {string} tournoiId - ID du tournoi
+ * @param {string} teamId - ID de l'équipe
+ * @returns {Object|null} - Informations de l'équipe ou null si non trouvée
+ */
+function getTeamById(tournoiId, teamId) {
+    const tournois = loadJson(filePath, []);
+    const tournoi = tournois.find(t => t.id === tournoiId);
+    if (!tournoi) return null;
+    return tournoi.equipes.find(team => team.id === teamId) || null;
+}
+
+/**
+ * Récupère le nom d'une équipe par son ID
+ * @param {string} tournoiId - ID du tournoi
+ * @param {string} teamId - ID de l'équipe
+ * @returns {string|null} - Nom de l'équipe ou null si non trouvée
+ */
+function getTeamNameById(tournoiId, teamId) {
+    const team = getTeamById(tournoiId, teamId);
+    return team ? team.name : null;
+}
+
+/**
+ * Récupère le logo d'une équipe par son ID
+ * @param {string} tournoiId - ID du tournoi
+ * @param {string} teamId - ID de l'équipe
+ * @returns {string|null} - Chemin du logo de l'équipe ou null si non trouvée
+ */
+function getTeamLogoById(tournoiId, teamId) {
+    const team = getTeamById(tournoiId, teamId);
+    return team ? team.logo : null;
+}
+
+
+/**
  * Mélange un tableau aléatoirement
  * @param {Array} array - Tableau à mélanger
  * @returns {Array} - Tableau mélangé
@@ -51,7 +87,7 @@ function generateBracketStructure(tournoiId) {
 
     // Création du premier tour
     for (let i = 0; i < totalEquipes; i += 2) {
-        currentRound.push({ team1: equipes[i], team2: equipes[i + 1], winner: null });
+        currentRound.push({ team1: equipes[i].id, team2: equipes[i + 1].id, winner: null });
     }
     rounds.push(currentRound);
 
@@ -59,7 +95,7 @@ function generateBracketStructure(tournoiId) {
     while (currentRound.length > 1) {
         let nextRound = [];
         for (let i = 0; i < currentRound.length; i += 2) {
-            nextRound.push({ team1: {"id": null, "name": null, "logo": null}, team2: {"id": null, "name": null, "logo": null}, winner: null }); // Placeholders pour les vainqueurs
+            nextRound.push({ team1: null, team2: null, winner: null }); // Placeholders pour les vainqueurs
         }
         rounds.push(nextRound);
         currentRound = nextRound;
@@ -145,28 +181,45 @@ async function generateTournamentBracketImage(tournoiId) {
 
     // Encadré du gagnant (on affiche le nom du gagnant s'il n'est pas null, sinon l'emoji trophée)
     ctx.strokeRect(centerX - boxWidth / 2, centerY - boxHeight / 2 - boxWinnerHeight, boxWidth, boxHeight + 20);
-    ctx.fillText(finalMatch && finalMatch.winner ? finalMatch.winner.name : "🏆", centerX, centerY - boxWinnerHeight + 10);
+    if (finalMatch && finalMatch.winner) {
+        const winnerName = getTeamNameById(tournoiId, finalMatch.winner);
+        ctx.fillText(winnerName, centerX, centerY - boxWinnerHeight + 10);
+    } else {
+        ctx.fillText("🏆", centerX, centerY - boxWinnerHeight + 10);
+    }
 
     // 📌 **3ème étape : Générer les 2 encadrés des équipes finalistes**
     const leftX = centerX - finalRoundSpacing;
     const rightX = centerX + finalRoundSpacing;
 
-    ctx.strokeRect(leftX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
-    ctx.fillText(finalMatch && finalMatch.team1 ? finalMatch.team1.name : "???", leftX, centerY);
+    if (finalMatch && finalMatch.team1) {
+        const team1Name = getTeamNameById(tournoiId, finalMatch.team1);
+        const team1LogoPath = getTeamLogoById(tournoiId, finalMatch.team1);
+        ctx.strokeRect(leftX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
+        ctx.fillText(team1Name, leftX, centerY);
 
-    const team1LogoPath = finalMatch.team1.logo;
-    if (team1LogoPath) {
-        const team1Logo = await loadImage(team1LogoPath);
-        ctx.drawImage(team1Logo, leftX - boxWidth / 2, centerY - boxHeight / 2, boxHeight, boxHeight);
+        if (team1LogoPath) {
+            const team1Logo = await loadImage(team1LogoPath);
+            ctx.drawImage(team1Logo, leftX - boxWidth / 2, centerY - boxHeight / 2, boxHeight, boxHeight);
+        }
+    } else {
+        ctx.strokeRect(leftX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
+        ctx.fillText("???", leftX, centerY);
     }
 
-    ctx.strokeRect(rightX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
-    ctx.fillText(finalMatch && finalMatch.team2 ? finalMatch.team2.name : "???", rightX, centerY);
+    if (finalMatch && finalMatch.team2) {
+        const team2Name = getTeamNameById(tournoiId, finalMatch.team2);
+        const team2LogoPath = getTeamLogoById(tournoiId, finalMatch.team2);
+        ctx.strokeRect(rightX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
+        ctx.fillText(team2Name, rightX, centerY);
 
-    const team2LogoPath = finalMatch.team2.logo;
-    if (team2LogoPath) {
-        const team2Logo = await loadImage(team2LogoPath);
-        ctx.drawImage(team2Logo, rightX - boxWidth / 2, centerY - boxHeight / 2, boxHeight, boxHeight);
+        if (team2LogoPath) {
+            const team2Logo = await loadImage(team2LogoPath);
+            ctx.drawImage(team2Logo, rightX - boxWidth / 2, centerY - boxHeight / 2, boxHeight, boxHeight);
+        }
+    } else {
+        ctx.strokeRect(rightX - boxWidth / 2, centerY - boxHeight / 2, boxWidth, boxHeight);
+        ctx.fillText("???", rightX, centerY);
     }
 
     // 📌 **4ème étape : Connecter les finalistes à l'encadré du gagnant**
@@ -211,7 +264,9 @@ async function generateTournamentBracketImage(tournoiId) {
 
         // Pour la partie gauche, on récupère la première moitié des matchs de ce round
         let leftCounter = 0;
-        roundsLeft[roundsLeft.length - 1].forEach(async pos => {
+        const currentRoundLeft = roundsLeft[roundsLeft.length - 1];
+        for (let i = 0; i < currentRoundLeft.length; i++) {
+            const pos = currentRoundLeft[i];
             const y1 = pos.y - ySpacing + boxHeight / 2;
             const y2 = pos.y + ySpacing - boxHeight / 2;
             const x = currentXLeft;
@@ -219,21 +274,31 @@ async function generateTournamentBracketImage(tournoiId) {
             // Récupération du match pour la paire courante
             const match = roundMatches[leftCounter] || {};
             ctx.strokeRect(x - boxWidth / 2, y1 - boxHeight / 2, boxWidth, boxHeight);
-            ctx.fillText(match.team1 ? match.team1.name : "???", x, y1);
+            if (match.team1) {
+                const team1Name = getTeamNameById(tournoiId, match.team1);
+                const team1LogoPath = getTeamLogoById(tournoiId, match.team1);
+                ctx.fillText(team1Name, x, y1);
 
-            const team1LogoPath = match.team1.logo;
-            if (team1LogoPath) {
-                const team1Logo = await loadImage(team1LogoPath);
-                ctx.drawImage(team1Logo, x - boxWidth / 2, y1 - boxHeight / 2, boxHeight, boxHeight);
+                if (team1LogoPath) {
+                    const team1Logo = await loadImage(team1LogoPath);
+                    ctx.drawImage(team1Logo, x - boxWidth / 2, y1 - boxHeight / 2, boxHeight, boxHeight);
+                }
+            } else {
+                ctx.fillText("???", x, y1);
             }
 
             ctx.strokeRect(x - boxWidth / 2, y2 - boxHeight / 2, boxWidth, boxHeight);
-            ctx.fillText(match.team2 ? match.team2.name : "???", x, y2);
+            if (match.team2) {
+                const team2Name = getTeamNameById(tournoiId, match.team2);
+                const team2LogoPath = getTeamLogoById(tournoiId, match.team2);
+                ctx.fillText(team2Name, x, y2);
 
-            const team2LogoPath = match.team2.logo;
-            if (team2LogoPath) {
-                const team2Logo = await loadImage(team2LogoPath);
-                ctx.drawImage(team2Logo, x - boxWidth / 2, y2 - boxHeight / 2, boxHeight, boxHeight);
+                if (team2LogoPath) {
+                    const team2Logo = await loadImage(team2LogoPath);
+                    ctx.drawImage(team2Logo, x - boxWidth / 2, y2 - boxHeight / 2, boxHeight, boxHeight);
+                }
+            } else {
+                ctx.fillText("???", x, y2);
             }
 
             // Tracer les lignes reliant les encadrés au round suivant
@@ -254,33 +319,45 @@ async function generateTournamentBracketImage(tournoiId) {
             newRoundLeft.push({ x, y: y1 });
             newRoundLeft.push({ x, y: y2 });
             leftCounter++; // Un match par paire (2 boîtes)
-        });
+        }
 
         // Pour la partie droite, on récupère la deuxième moitié des matchs du round
         // On commence à l'index égal à la moitié de la longueur
         let rightCounter = Math.floor(roundMatches.length / 2);
-        roundsRight[roundsRight.length - 1].forEach(async pos => {
+        const currentRoundRight = roundsRight[roundsRight.length - 1];
+        for (let i = 0; i < currentRoundRight.length; i++) {
+            const pos = currentRoundRight[i];
             const y1 = pos.y - ySpacing + boxHeight / 2;
             const y2 = pos.y + ySpacing - boxHeight / 2;
             const x = currentXRight;
 
             const match = roundMatches[rightCounter] || {};
             ctx.strokeRect(x - boxWidth / 2, y1 - boxHeight / 2, boxWidth, boxHeight);
-            ctx.fillText(match.team1 ? match.team1.name : "???", x, y1);
+            if (match.team1) {
+                const team1Name = getTeamNameById(tournoiId, match.team1);
+                const team1LogoPath = getTeamLogoById(tournoiId, match.team1);
+                ctx.fillText(team1Name, x, y1);
 
-            const team1LogoPath = match.team1.logo;
-            if (team1LogoPath) {
-                const team1Logo = await loadImage(team1LogoPath);
-                ctx.drawImage(team1Logo, x - boxWidth / 2, y1 - boxHeight / 2, boxHeight, boxHeight);
+                if (team1LogoPath) {
+                    const team1Logo = await loadImage(team1LogoPath);
+                    ctx.drawImage(team1Logo, x - boxWidth / 2, y1 - boxHeight / 2, boxHeight, boxHeight);
+                }
+            } else {
+                ctx.fillText("???", x, y1);
             }
 
             ctx.strokeRect(x - boxWidth / 2, y2 - boxHeight / 2, boxWidth, boxHeight);
-            ctx.fillText(match.team2 ? match.team2.name : "???", x, y2);
+            if (match.team2) {
+                const team2Name = getTeamNameById(tournoiId, match.team2);
+                const team2LogoPath = getTeamLogoById(tournoiId, match.team2);
+                ctx.fillText(team2Name, x, y2);
 
-            const team2LogoPath = match.team2.logo;
-            if (team2LogoPath) {
-                const team2Logo = await loadImage(team2LogoPath);
-                ctx.drawImage(team2Logo, x - boxWidth / 2, y2 - boxHeight / 2, boxHeight, boxHeight);
+                if (team2LogoPath) {
+                    const team2Logo = await loadImage(team2LogoPath);
+                    ctx.drawImage(team2Logo, x - boxWidth / 2, y2 - boxHeight / 2, boxHeight, boxHeight);
+                }
+            } else {
+                ctx.fillText("???", x, y2);
             }
 
             ctx.beginPath();
@@ -300,7 +377,7 @@ async function generateTournamentBracketImage(tournoiId) {
             newRoundRight.push({ x, y: y1 });
             newRoundRight.push({ x, y: y2 });
             rightCounter++;
-        });
+        }
 
         roundsLeft.push(newRoundLeft);
         roundsRight.push(newRoundRight);
@@ -335,16 +412,17 @@ function getMatchesForSelectMenu(tournoiId) {
         const round = tournoi.bracket[roundIndex];
         for (let match of round) {
             if (match.team1 && match.team2 && !match.winner) {
-                const team1Name = match.team1.name;
-                const team2Name = match.team2.name;
-                matches.push({
-                    label: `${team1Name} vs ${team2Name}`,
-                    value: `${matchId}`
-                });
+                const team1Name = getTeamNameById(tournoiId, match.team1);
+                const team2Name = getTeamNameById(tournoiId, match.team2);
+                if (team1Name && team2Name) {
+                    matches.push({
+                        label: `${team1Name} vs ${team2Name}`,
+                        value: `${matchId}`
+                    });
+                }
             }
             matchId++;
         }
-        matchId = 0;
     }
 
     return matches;
@@ -415,6 +493,9 @@ function getTeamSelectMenu(tournoi) {
 }
 
 module.exports = {
+    getTeamById,
+    getTeamNameById,
+    getTeamLogoById,
     generateBracketStructure,
     generateTournamentBracketImage,
     getMatchesForSelectMenu,
