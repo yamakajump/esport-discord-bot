@@ -1,6 +1,7 @@
-const { MessageFlags } = require('discord.js');
+const { MessageFlags, AttachmentBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const { generateTournamentBracketImage } = require('../utils/tournamentUtils');
 
 const filePath = path.join(__dirname, '../data/tournois.json');
 const tempLogoPath = path.join(__dirname, '../data/logos');
@@ -52,5 +53,18 @@ module.exports = {
 
         // Supprimer le logo temporaire
         fs.unlinkSync(tempLogoFilePath);
+
+        // Générer l'image du bracket
+        const bracketPath = await generateTournamentBracketImage(selectedTournoiId);
+        const attachment = new AttachmentBuilder(bracketPath);
+
+        // Mettre à jour le message avec la nouvelle image du bracket
+        const channel = await interaction.client.channels.fetch(selectedTournoi.channelId);
+        const message = await channel.messages.fetch(selectedTournoi.messageId);
+
+        await message.edit({
+            content: "✅ Tournoi complet ! Voici le bracket :",
+            files: [attachment]
+        });
     }
 };

@@ -102,7 +102,10 @@ module.exports = {
             couleurNeon: neonColorHex,
             couleurNomsEquipes: equipeColorHex,
             couleurTitre: titreColorHex,
-            fondImagePath
+            fondImagePath,
+            guildId: interaction.guild.id,
+            channelId: interaction.channel.id,
+            messageId: null // Initialisé à null, sera mis à jour après l'envoi du message
         };
 
         tournois.push(nouveauTournoi);
@@ -126,6 +129,14 @@ module.exports = {
                     .setStyle(ButtonStyle.Danger)
             );
 
-        return interaction.reply({ embeds: [embed], components: [row] });
+        // Envoyer la réponse initiale
+        await interaction.reply({ embeds: [embed], components: [row] });
+
+        // Récupérer le message après l'envoi
+        const message = await interaction.fetchReply();
+
+        // Mettre à jour le messageId dans le fichier JSON
+        nouveauTournoi.messageId = message.id;
+        saveJson(filePath, tournois);
     }
 };
