@@ -48,7 +48,6 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
         );
     } catch (error) {
         console.error('Erreur lors de l\'enregistrement des commandes:', error);
-        reportError(client, `Erreur lors de l'enregistrement des commandes:\n\`\`\`${error.message}\`\`\``);
     }
 })();
 
